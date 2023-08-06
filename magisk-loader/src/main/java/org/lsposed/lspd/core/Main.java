@@ -30,6 +30,10 @@ import org.lsposed.lspd.BuildConfig;
 public class Main {
 
     public static void forkCommon(boolean isSystem, String niceName, IBinder binder) {
+        // [core]/org.lsposed.lspd.core.Startup
+        // DEFAULT_MANAGER_PACKAGE_NAME = /build.gradle.gtk/defaultManagerPackageName = "org.lsposed.manager"
+        // MANAGER_INJECTED_PKG_NAME    = /build.gradle.gtk/injectedPackageName = "com.android.shell"
+        // MANAGER_INJECTED_UID         = /build.gradle.gtk/injectedPackageUid = 2000
         Startup.initXposed(isSystem, niceName, ILSPApplicationService.Stub.asInterface(binder));
         if ((niceName.equals(BuildConfig.MANAGER_INJECTED_PKG_NAME) || niceName.equals(BuildConfig.DEFAULT_MANAGER_PACKAGE_NAME))
                 && ParasiticManagerHooker.start()) {

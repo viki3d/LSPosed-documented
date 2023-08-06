@@ -31,6 +31,7 @@ import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
+//[services]\daemon-service\src\main\aidl\org\lsposed\lspd\models\Module.aidl
 import org.lsposed.lspd.models.Module;
 
 import java.util.Collections;
@@ -119,10 +120,15 @@ public class LSPApplicationService extends ILSPApplicationService.Stub {
     public List<Module> getModulesList() throws RemoteException {
         var processInfo = ensureRegistered();
         if (processInfo.uid == 1000 && processInfo.processName.equals("android")) {
+			// Read "SystemServer-modules" by NOT using cache
             return ConfigManager.getInstance().getModulesForSystemServer();
         }
+		// If this is the ManagerApp (manager.apk) - [app] module
         if (ServiceManager.getManagerService().isRunningManager(processInfo.pid, processInfo.uid))
+			// then do not hook
             return Collections.emptyList();
+			
+		// Read "non-SystemServer-modules" by using cache
         return ConfigManager.getInstance().getModulesForProcess(processInfo.processName, processInfo.uid);
     }
 

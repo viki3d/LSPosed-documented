@@ -32,12 +32,13 @@ public class BridgeService {
         void onSystemServerDied();
     }
 
-    private static IBinder serviceBinder = null;
+    private static IBinder binderLSPosedService = null;
 
     private static Listener listener;
-    private static IBinder bridgeService;
+    private static IBinder bridgeService; //[magisk-loader]/org.lsposed.lspd.service.BridgeService
     private static final IBinder.DeathRecipient bridgeRecipient = new IBinder.DeathRecipient() {
 
+        // Event: Service died: [magisk-loader]/org.lsposed.lspd.service.BridgeService
         @Override
         public void binderDied() {
             Log.i(TAG, "service " + SERVICE_NAME + " is dead. ");
@@ -64,7 +65,7 @@ public class BridgeService {
             bridgeService.unlinkToDeath(this, 0);
             bridgeService = null;
             listener.onSystemServerDied();
-            new Handler(Looper.getMainLooper()).post(() -> sendToBridge(serviceBinder, true));
+            new Handler(Looper.getMainLooper()).post(() -> sendToBridge(binderLSPosedService, true));
         }
     };
 
@@ -137,9 +138,10 @@ public class BridgeService {
         }
     }
 
+    // Sends LSPosedService instance to [magisk-loader]/org.lsposed.lspd.service.BridgeService
     public static void send(LSPosedService service, Listener listener) {
         BridgeService.listener = listener;
-        BridgeService.serviceBinder = service.asBinder();
-        sendToBridge(serviceBinder, false);
+        BridgeService.binderLSPosedService = service.asBinder();
+        sendToBridge(binderLSPosedService, false);
     }
 }

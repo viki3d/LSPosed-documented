@@ -48,8 +48,11 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.lsposed.daemon.BuildConfig;
+//[services]\manager-service\src\main\aidl\org\lsposed\lspd\Application.aidl
 import org.lsposed.lspd.models.Application;
+//[services]\daemon-service\src\main\aidl\org\lsposed\lspd\models\Module.aidl
 import org.lsposed.lspd.models.Module;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
