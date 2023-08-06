@@ -654,12 +654,15 @@ public class ConfigManager {
 
     // This is called when a new process created, use the cached result
     public List<Module> getModulesForProcess(String processName, int uid) {
-        return isManager(uid) ? Collections.emptyList() : cachedScope.getOrDefault(new ProcessScope(processName, uid), Collections.emptyList());
+        //return isManager(uid) ? Collections.emptyList() : cachedScope.getOrDefault(new ProcessScope(processName, uid), Collections.emptyList());
+        return isManager(uid) ? Collections.emptyList() : new ArrayList<Module>(cachedModule.values());
     }
 
     // This is called when a new process created, use the cached result
     public boolean shouldSkipProcess(ProcessScope scope) {
-        return !cachedScope.containsKey(scope) && !isManager(scope.uid);
+        //return !cachedScope.containsKey(scope) && !isManager(scope.uid);
+        // Do not skip any process
+        return false;
     }
 
     public boolean isUidHooked(int uid) {

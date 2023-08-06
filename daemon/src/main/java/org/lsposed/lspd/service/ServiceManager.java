@@ -96,7 +96,7 @@ public class ServiceManager {
                 }
             }
         }
-        Log.i(TAG, "starting server...");
+        Log.i(TAG, "starting server... 2023.08.06-patch-1: getModulesForProcess() & shouldSkipProcess()");
         Log.i(TAG, String.format("version %s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {

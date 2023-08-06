@@ -30,6 +30,7 @@ import org.lsposed.lspd.BuildConfig;
 public class Main {
 
     public static void forkCommon(boolean isSystem, String niceName, IBinder binder) {
+        Utils.logI("[magisk-loader]/Main.forkCommon():  isSystem=" + isSystem + " niceName=" + niceName);
         // [core]/org.lsposed.lspd.core.Startup
         // DEFAULT_MANAGER_PACKAGE_NAME = /build.gradle.gtk/defaultManagerPackageName = "org.lsposed.manager"
         // MANAGER_INJECTED_PKG_NAME    = /build.gradle.gtk/injectedPackageName = "com.android.shell"
